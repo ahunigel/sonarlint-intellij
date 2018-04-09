@@ -61,6 +61,7 @@ public class SonarLintAnalysisResultsPanel extends AbstractIssuesPanel {
     SimpleActionGroup actionGroup = new SimpleActionGroup();
     actionGroup.add(sonarLintActions.analyzeChangedFiles());
     actionGroup.add(sonarLintActions.analyzeAllFiles());
+    actionGroup.add(sonarLintActions.analyzeModuleFiles());
     actionGroup.add(sonarLintActions.cancelAnalysis());
     actionGroup.add(sonarLintActions.configure());
     actionGroup.add(sonarLintActions.clearResults());

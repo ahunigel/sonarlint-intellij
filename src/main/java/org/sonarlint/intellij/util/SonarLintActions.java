@@ -25,11 +25,7 @@ import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.ApplicationComponent;
 import icons.SonarLintIcons;
 import org.jetbrains.annotations.NotNull;
-import org.sonarlint.intellij.actions.SonarAnalyzeAllFilesAction;
-import org.sonarlint.intellij.actions.SonarAnalyzeChangedFilesAction;
-import org.sonarlint.intellij.actions.SonarCleanConsoleAction;
-import org.sonarlint.intellij.actions.SonarClearAnalysisResultsAction;
-import org.sonarlint.intellij.actions.SonarClearIssuesAction;
+import org.sonarlint.intellij.actions.*;
 
 /**
  * Creates and keeps a single instance of actions used by SonarLint.
@@ -44,6 +40,7 @@ public class SonarLintActions implements ApplicationComponent {
   private AnAction configureAction;
   private AnAction analyzeChangedFilesAction;
   private AnAction analyzeAllFilesAction;
+  private AnAction analyzeModuleFilesAction;
   private AnAction showAnalyzersAction;
 
   private void init() {
@@ -62,6 +59,9 @@ public class SonarLintActions implements ApplicationComponent {
     analyzeAllFilesAction = new SonarAnalyzeAllFilesAction("Analyze All Project Files",
       "Run a SonarLint analysis on all project files",
       SonarLintIcons.PROJECT);
+    analyzeModuleFilesAction = new SonarAnalyzeModuleFilesAction("Analyze Current Module Files",
+      "Run a SonarLint analysis on current module files",
+      SonarLintIcons.MODULE);
     analyzeChangedFilesAction = new SonarAnalyzeChangedFilesAction("Analyze VCS Changed Files",
       "Run a SonarLint analysis on VCS changed files",
       SonarLintIcons.SCM);
@@ -99,6 +99,10 @@ public class SonarLintActions implements ApplicationComponent {
 
   public AnAction analyzeAllFiles() {
     return analyzeAllFilesAction;
+  }
+
+  public AnAction analyzeModuleFiles() {
+    return analyzeModuleFilesAction;
   }
 
   @Override public void initComponent() {
