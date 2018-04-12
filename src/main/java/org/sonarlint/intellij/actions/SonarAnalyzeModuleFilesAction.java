@@ -7,7 +7,7 @@ import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.ComponentManager;
 import com.intellij.openapi.module.Module;
-import com.intellij.openapi.module.ModuleManager;
+import com.intellij.openapi.module.ModuleUtil;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.project.ProjectCoreUtil;
 import com.intellij.openapi.roots.ModuleFileIndex;
@@ -25,7 +25,6 @@ import org.sonarlint.intellij.util.SonarLintUtils;
 
 import javax.swing.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -34,6 +33,9 @@ import java.util.List;
  */
 public class SonarAnalyzeModuleFilesAction extends AbstractSonarAction {
   private static final String HIDE_WARNING_PROPERTY = "SonarLint.analyzeModuleFiles.hideWarning";
+
+  public SonarAnalyzeModuleFilesAction() {
+  }
 
   public SonarAnalyzeModuleFilesAction(@Nullable String text, @Nullable String description, @Nullable Icon icon) {
     super(text, description, icon);
@@ -48,16 +50,13 @@ public class SonarAnalyzeModuleFilesAction extends AbstractSonarAction {
   @Nullable
   private Module getCurrentModule(AnActionEvent e) {
     VirtualFile file = e.getData(CommonDataKeys.VIRTUAL_FILE);
-    ModuleManager manager = ModuleManager.getInstance(e.getProject());
-    return Arrays.stream(manager.getModules())
-        .filter(m -> !m.getModuleFile().getParent().getPath().equals(e.getProject().getBasePath()))
-        .filter(m -> file.getPath().startsWith(m.getModuleFile().getParent().getPath()))
-        .findFirst().orElse(null);
+    if (file == null) return null;
+    return ModuleUtil.findModuleForFile(file, e.getProject());
   }
 
   @Override
   protected boolean isVisible(String place) {
-    return !ActionPlaces.PROJECT_VIEW_POPUP.equals(place) ;
+    return !ActionPlaces.PROJECT_VIEW_POPUP.equals(place);
   }
 
   @Override
