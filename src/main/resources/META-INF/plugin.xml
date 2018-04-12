@@ -240,6 +240,14 @@
             <add-to-group group-id="SonarLint.AnalyzeMenu"/>
         </action>
 
+        <action id="SonarLint.AnalyzeModuleFiles"
+                class="org.sonarlint.intellij.actions.SonarAnalyzeModuleFilesAction"
+                text="Analyze Current Module Files with SonarLint"
+                description="Run a SonarLint analysis on Module files"
+                icon="SonarLintIcons.SONARLINT">
+            <add-to-group group-id="SonarLint.AnalyzeMenu"/>
+        </action>
+
         <action id="SonarLint.AnalyzeAllFiles"
                 class="org.sonarlint.intellij.actions.SonarAnalyzeAllFilesAction"
                 text="Analyze All Files with SonarLint"

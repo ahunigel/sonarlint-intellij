@@ -39,8 +39,8 @@ public class SonarLintActions implements ApplicationComponent {
   private AnAction cancelAction;
   private AnAction configureAction;
   private AnAction analyzeChangedFilesAction;
-  private AnAction analyzeAllFilesAction;
   private AnAction analyzeModuleFilesAction;
+  private AnAction analyzeAllFilesAction;
   private AnAction showAnalyzersAction;
 
   private void init() {
@@ -56,12 +56,12 @@ public class SonarLintActions implements ApplicationComponent {
     cleanConsoleAction = new SonarCleanConsoleAction("Clear SonarLint Console",
       "Clear SonarLint console",
       SonarLintIcons.CLEAN);
+    analyzeModuleFilesAction = new SonarAnalyzeModuleFilesAction("Analyze Current Module Files",
+        "Run a SonarLint analysis on current module files",
+        SonarLintIcons.MODULE);
     analyzeAllFilesAction = new SonarAnalyzeAllFilesAction("Analyze All Project Files",
       "Run a SonarLint analysis on all project files",
       SonarLintIcons.PROJECT);
-    analyzeModuleFilesAction = new SonarAnalyzeModuleFilesAction("Analyze Current Module Files",
-      "Run a SonarLint analysis on current module files",
-      SonarLintIcons.MODULE);
     analyzeChangedFilesAction = new SonarAnalyzeChangedFilesAction("Analyze VCS Changed Files",
       "Run a SonarLint analysis on VCS changed files",
       SonarLintIcons.SCM);
@@ -97,12 +97,12 @@ public class SonarLintActions implements ApplicationComponent {
     return analyzeChangedFilesAction;
   }
 
-  public AnAction analyzeAllFiles() {
-    return analyzeAllFilesAction;
-  }
-
   public AnAction analyzeModuleFiles() {
     return analyzeModuleFilesAction;
+  }
+
+  public AnAction analyzeAllFiles() {
+    return analyzeAllFilesAction;
   }
 
   @Override public void initComponent() {
